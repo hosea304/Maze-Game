@@ -112,10 +112,8 @@ public class MazeGenerator : MonoBehaviour
         allWalls.Clear();
         GenerateMaze();
     }
-
     void GenerateMaze()
     {
-        // Memastikan pintu masuk terbuka sebelum mulai generate
         InitializeMaze();
         ForceOpenEntrance();
 
@@ -126,8 +124,6 @@ public class MazeGenerator : MonoBehaviour
         while (!validMaze && attempts < maxAttempts)
         {
             InitializeMaze();
-
-            // Langsung buka pintu masuk setelah inisialisasi
             ForceOpenEntrance();
 
             int startX = currentSettings.width / 2;
@@ -140,7 +136,6 @@ public class MazeGenerator : MonoBehaviour
             {
                 CreateMainPath();
                 CreateEntranceAndExit();
-
                 validMaze = ValidatePath();
                 ForceOpenEntrance();
             }
@@ -150,11 +145,6 @@ public class MazeGenerator : MonoBehaviour
             }
 
             attempts++;
-
-            if (!validMaze && attempts < maxAttempts)
-            {
-                Debug.Log($"Attempt {attempts}: Invalid maze, regenerating...");
-            }
         }
 
         if (!validMaze)
@@ -166,322 +156,6 @@ public class MazeGenerator : MonoBehaviour
         ForceOpenEntrance();
         CreateWalls();
         RemoveEntranceWall();
-    }
-
-    void InitializeMaze()
-    {
-        maze = new Cell[currentSettings.width, currentSettings.height];
-        for (int x = 0; x < currentSettings.width; x++)
-        {
-            for (int y = 0; y < currentSettings.height; y++)
-            {
-                maze[x, y] = new Cell();
-            }
-        }
-    }
-
-    private void ForceOpenEntrance()
-    {
-        // Hapus semua dinding di pintu masuk
-        maze[0, 0].walls[3] = false; // Left wall (entrance)
-        maze[0, 0].isPath = true;
-
-        if (currentSettings.width > 1)
-        {
-            maze[1, 0].walls[3] = false;
-            maze[1, 0].isPath = true;
-        }
-    }
-
-    private void RemoveEntranceWall()
-    {
-        Vector3 entrancePosition = mazeOrigin;
-
-        foreach (GameObject wall in allWalls.ToArray())
-        {
-            if (wall != null)
-            {
-                Vector3 wallPosition = wall.transform.position;
-                float distanceToEntrance = Vector3.Distance(wallPosition, entrancePosition);
-                float angleY = wall.transform.rotation.eulerAngles.y;
-
-                if (distanceToEntrance < wallLength * 0.5f &&
-                    (Mathf.Abs(angleY - 270f) < 5f || Mathf.Abs(angleY - (-90f)) < 5f))
-                {
-                    Debug.Log("Removing entrance wall");
-                    allWalls.Remove(wall);
-                    Destroy(wall);
-                }
-            }
-        }
-    }
-
-    void GeneratePath(int x, int y)
-    {
-        maze[x, y].visited = true;
-
-        List<int> directions = new List<int> { 0, 1, 2, 3 };
-        ShuffleList(directions);
-
-        int[] dx = { 0, 1, 0, -1 };
-        int[] dy = { 1, 0, -1, 0 };
-
-        if (difficulty == Difficulty.Extreme)
-        {
-            foreach (int direction in directions)
-            {
-                int newX = x + dx[direction];
-                int newY = y + dy[direction];
-
-                if (IsValidCell(newX, newY) && !maze[newX, newY].visited)
-                {
-                    if (Random.value > currentSettings.deadEndProbability)
-                    {
-                        maze[x, y].walls[direction] = false;
-                        maze[newX, newY].walls[(direction + 2) % 4] = false;
-                        maze[newX, newY].distanceFromStart = maze[x, y].distanceFromStart + 1;
-                        GeneratePath(newX, newY);
-                    }
-                    else
-                    {
-                        maze[newX, newY].isDeadEnd = true;
-                        maze[newX, newY].visited = true;
-
-                        if (Random.value < 0.5f)
-                        {
-                            CreateFakePath(newX, newY);
-                        }
-                    }
-                }
-            }
-        }
-        else
-        {
-            foreach (int direction in directions)
-            {
-                int newX = x + dx[direction];
-                int newY = y + dy[direction];
-
-                if (IsValidCell(newX, newY) && !maze[newX, newY].visited)
-                {
-                    if (Random.value > currentSettings.complexityFactor)
-                    {
-                        maze[x, y].walls[direction] = false;
-                        maze[newX, newY].walls[(direction + 2) % 4] = false;
-                        maze[newX, newY].distanceFromStart = maze[x, y].distanceFromStart + 1;
-                        GeneratePath(newX, newY);
-                    }
-                    else
-                    {
-                        maze[newX, newY].isDeadEnd = true;
-                        maze[newX, newY].visited = true;
-                    }
-                }
-            }
-        }
-    }
-
-    void CreateFakePath(int startX, int startY)  // Mengubah parameter names
-    {
-        int maxFakeLength = 3;
-        int currentLength = 0;
-        int lastDirection = -1;
-        int currentX = startX;  // Menggunakan variabel baru
-        int currentY = startY;  // Menggunakan variabel baru
-
-        while (currentLength < maxFakeLength)
-        {
-            List<int> availableDirections = new List<int>();
-            int[] dx = { 0, 1, 0, -1 };
-            int[] dy = { 1, 0, -1, 0 };
-
-            for (int i = 0; i < 4; i++)
-            {
-                if (i != (lastDirection + 2) % 4)
-                {
-                    int nextX = currentX + dx[i];  // Menggunakan nama berbeda
-                    int nextY = currentY + dy[i];  // Menggunakan nama berbeda
-                    if (IsValidCell(nextX, nextY) && !maze[nextX, nextY].visited)
-                    {
-                        availableDirections.Add(i);
-                    }
-                }
-            }
-
-            if (availableDirections.Count == 0) break;
-
-            int direction = availableDirections[Random.Range(0, availableDirections.Count)];
-            int nextCellX = currentX + dx[direction];  // Menggunakan nama yang berbeda
-            int nextCellY = currentY + dy[direction];  // Menggunakan nama yang berbeda
-
-            maze[currentX, currentY].walls[direction] = false;
-            maze[nextCellX, nextCellY].walls[(direction + 2) % 4] = false;
-            maze[nextCellX, nextCellY].visited = true;
-            maze[nextCellX, nextCellY].isDeadEnd = true;
-
-            currentX = nextCellX;
-            currentY = nextCellY;
-            lastDirection = direction;
-            currentLength++;
-        }
-    }
-
-    void AddComplexity()
-    {
-        for (int x = 1; x < currentSettings.width - 1; x++)
-        {
-            for (int y = 1; y < currentSettings.height - 1; y++)
-            {
-                if (Random.value < currentSettings.extraPathProbability)
-                {
-                    int direction = Random.Range(0, 4);
-                    int newX = x + (direction == 1 ? 1 : direction == 3 ? -1 : 0);
-                    int newY = y + (direction == 0 ? 1 : direction == 2 ? -1 : 0);
-
-                    if (IsValidCell(newX, newY))
-                    {
-                        maze[x, y].walls[direction] = false;
-                        maze[newX, newY].walls[(direction + 2) % 4] = false;
-                    }
-                }
-            }
-        }
-    }
-
-    void CreateMainPath()
-    {
-        if (difficulty == Difficulty.Extreme)
-        {
-            CreateExtremePath();
-        }
-        else
-        {
-            float straightPathProbability = difficulty switch
-            {
-                Difficulty.Easy => 0.7f,
-                Difficulty.Medium => 0.5f,
-                Difficulty.Hard => 0.3f,
-                Difficulty.Extreme => 0.2f,
-                _ => 0.5f
-            };
-
-            int currentX = 0;
-            int currentY = 0;
-            int targetX = currentSettings.width - 1;
-            int targetY = currentSettings.height - 1;
-
-            while (currentX < targetX || currentY < targetY)
-            {
-                maze[currentX, currentY].isPath = true;
-
-                if (currentX < targetX && (Random.value < straightPathProbability || currentY == targetY))
-                {
-                    maze[currentX, currentY].walls[1] = false;
-                    maze[currentX + 1, currentY].walls[3] = false;
-                    currentX++;
-                }
-                else if (currentY < targetY)
-                {
-                    maze[currentX, currentY].walls[0] = false;
-                    maze[currentX, currentY + 1].walls[2] = false;
-                    currentY++;
-                }
-            }
-            maze[targetX, targetY].isPath = true;
-        }
-    }
-
-    void CreateExtremePath()
-    {
-        int currentX = 0;
-        int currentY = 0;
-        int targetX = currentSettings.width - 1;
-        int targetY = currentSettings.height - 1;
-
-        while (currentX != targetX || currentY != targetY)
-        {
-            maze[currentX, currentY].isPath = true;
-
-            List<(int dx, int dy)> possibleMoves = new List<(int dx, int dy)>();
-
-            if (currentX < targetX) possibleMoves.Add((1, 0));
-            if (currentY < targetY) possibleMoves.Add((0, 1));
-
-            if (Random.value < 0.3f)
-            {
-                if (currentX > 0) possibleMoves.Add((-1, 0));
-                if (currentY > 0) possibleMoves.Add((0, -1));
-            }
-
-            if (possibleMoves.Count == 0) break;
-
-            var move = possibleMoves[Random.Range(0, possibleMoves.Count)];
-            int newX = currentX + move.dx;
-            int newY = currentY + move.dy;
-
-            if (IsValidCell(newX, newY))
-            {
-                if (move.dx > 0)
-                {
-                    maze[currentX, currentY].walls[1] = false;
-                    maze[newX, newY].walls[3] = false;
-                }
-                else if (move.dx < 0)
-                {
-                    maze[currentX, currentY].walls[3] = false;
-                    maze[newX, newY].walls[1] = false;
-                }
-                else if (move.dy > 0)
-                {
-                    maze[currentX, currentY].walls[0] = false;
-                    maze[newX, newY].walls[2] = false;
-                }
-                else
-                {
-                    maze[currentX, currentY].walls[2] = false;
-                    maze[newX, newY].walls[0] = false;
-                }
-
-                currentX = newX;
-                currentY = newY;
-            }
-        }
-
-        maze[targetX, targetY].isPath = true;
-    }
-
-    private bool ValidatePath()
-    {
-        bool[,] visited = new bool[currentSettings.width, currentSettings.height];
-        return HasValidPath(0, 0, visited);
-    }
-
-    private bool HasValidPath(int x, int y, bool[,] visited)
-    {
-        if (x == currentSettings.width - 1 && y == currentSettings.height - 1)
-            return true;
-
-        visited[x, y] = true;
-
-        int[] dx = { 0, 1, 0, -1 }; // Top, Right, Bottom, Left
-        int[] dy = { 1, 0, -1, 0 };
-
-        for (int i = 0; i < 4; i++)
-        {
-            if (!maze[x, y].walls[i])
-            {
-                int newX = x + dx[i];
-                int newY = y + dy[i];
-
-                if (IsValidCell(newX, newY) && !visited[newX, newY])
-                {
-                    if (HasValidPath(newX, newY, visited))
-                        return true;
-                }
-            }
-        }
-
-        return false;
     }
 
     private void ForceMainPath()
@@ -545,6 +219,416 @@ public class MazeGenerator : MonoBehaviour
         }
     }
 
+    void InitializeMaze()
+    {
+        maze = new Cell[currentSettings.width, currentSettings.height];
+        for (int x = 0; x < currentSettings.width; x++)
+        {
+            for (int y = 0; y < currentSettings.height; y++)
+            {
+                maze[x, y] = new Cell();
+            }
+        }
+    }
+
+    private void ForceOpenEntrance()
+    {
+        maze[0, 0].walls[3] = false; // Left wall (entrance)
+        maze[0, 0].isPath = true;
+
+        if (currentSettings.width > 1)
+        {
+            maze[1, 0].walls[3] = false;
+            maze[1, 0].isPath = true;
+        }
+    }
+
+    private void RemoveEntranceWall()
+    {
+        Vector3 entrancePosition = mazeOrigin;
+
+        foreach (GameObject wall in allWalls.ToArray())
+        {
+            if (wall != null)
+            {
+                Vector3 wallPosition = wall.transform.position;
+                float distanceToEntrance = Vector3.Distance(wallPosition, entrancePosition);
+                float angleY = wall.transform.rotation.eulerAngles.y;
+
+                if (distanceToEntrance < wallLength * 0.5f &&
+                    (Mathf.Abs(angleY - 270f) < 5f || Mathf.Abs(angleY - (-90f)) < 5f))
+                {
+                    allWalls.Remove(wall);
+                    Destroy(wall);
+                }
+            }
+        }
+    }
+
+    void GeneratePath(int x, int y)
+    {
+        maze[x, y].visited = true;
+
+        List<int> directions = new List<int> { 0, 1, 2, 3 };
+        ShuffleList(directions);
+
+        int[] dx = { 0, 1, 0, -1 };
+        int[] dy = { 1, 0, -1, 0 };
+
+        if (difficulty == Difficulty.Extreme)
+        {
+            foreach (int direction in directions)
+            {
+                int nextX = x + dx[direction];
+                int nextY = y + dy[direction];
+
+                if (IsValidCell(nextX, nextY) && !maze[nextX, nextY].visited)
+                {
+                    if (Random.value > currentSettings.deadEndProbability)
+                    {
+                        maze[x, y].walls[direction] = false;
+                        maze[nextX, nextY].walls[(direction + 2) % 4] = false;
+                        maze[nextX, nextY].distanceFromStart = maze[x, y].distanceFromStart + 1;
+                        GeneratePath(nextX, nextY);
+                    }
+                    else
+                    {
+                        maze[nextX, nextY].isDeadEnd = true;
+                        maze[nextX, nextY].visited = true;
+
+                        if (Random.value < 0.5f)
+                        {
+                            CreateFakePath(nextX, nextY);
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            foreach (int direction in directions)
+            {
+                int newX = x + dx[direction];
+                int newY = y + dy[direction];
+
+                if (IsValidCell(newX, newY) && !maze[newX, newY].visited)
+                {
+                    if (Random.value > currentSettings.complexityFactor)
+                    {
+                        maze[x, y].walls[direction] = false;
+                        maze[newX, newY].walls[(direction + 2) % 4] = false;
+                        maze[newX, newY].distanceFromStart = maze[x, y].distanceFromStart + 1;
+                        GeneratePath(newX, newY);
+                    }
+                    else
+                    {
+                        maze[newX, newY].isDeadEnd = true;
+                        maze[newX, newY].visited = true;
+                    }
+                }
+            }
+        }
+    }
+
+    void CreateFakePath(int startX, int startY)
+    {
+        int maxFakeLength = 3;
+        int currentLength = 0;
+        int lastDirection = -1;
+        int currentX = startX;
+        int currentY = startY;
+
+        while (currentLength < maxFakeLength)
+        {
+            List<int> availableDirections = new List<int>();
+            int[] dx = { 0, 1, 0, -1 };
+            int[] dy = { 1, 0, -1, 0 };
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (i != (lastDirection + 2) % 4)
+                {
+                    int nextX = currentX + dx[i];
+                    int nextY = currentY + dy[i];
+                    if (IsValidCell(nextX, nextY) && !maze[nextX, nextY].visited)
+                    {
+                        availableDirections.Add(i);
+                    }
+                }
+            }
+
+            if (availableDirections.Count == 0) break;
+
+            int direction = availableDirections[Random.Range(0, availableDirections.Count)];
+            int nextCellX = currentX + dx[direction];
+            int nextCellY = currentY + dy[direction];
+
+            maze[currentX, currentY].walls[direction] = false;
+            maze[nextCellX, nextCellY].walls[(direction + 2) % 4] = false;
+            maze[nextCellX, nextCellY].visited = true;
+            maze[nextCellX, nextCellY].isDeadEnd = true;
+
+            currentX = nextCellX;
+            currentY = nextCellY;
+            lastDirection = direction;
+            currentLength++;
+        }
+    }
+
+    void AddComplexity()
+    {
+        for (int x = 1; x < currentSettings.width - 1; x++)
+        {
+            for (int y = 1; y < currentSettings.height - 1; y++)
+            {
+                if (Random.value < currentSettings.extraPathProbability)
+                {
+                    int direction = Random.Range(0, 4);
+                    int newX = x + (direction == 1 ? 1 : direction == 3 ? -1 : 0);
+                    int newY = y + (direction == 0 ? 1 : direction == 2 ? -1 : 0);
+
+                    if (IsValidCell(newX, newY))
+                    {
+                        maze[x, y].walls[direction] = false;
+                        maze[newX, newY].walls[(direction + 2) % 4] = false;
+                    }
+                }
+            }
+        }
+    }
+
+    void CreateMainPath()
+    {
+        if (difficulty == Difficulty.Extreme || difficulty == Difficulty.Hard)
+        {
+            CreateComplexPath();
+        }
+        else
+        {
+            float straightPathProbability = difficulty switch
+            {
+                Difficulty.Easy => 0.7f,
+                Difficulty.Medium => 0.5f,
+                _ => 0.5f
+            };
+            CreateSimplePath(straightPathProbability);
+        }
+    }
+
+    void CreateComplexPath()
+    {
+        int currentX = 0;
+        int currentY = 0;
+        int targetX = currentSettings.width - 1;
+        int targetY = currentSettings.height - 1;
+        List<Vector2Int> visitedCells = new List<Vector2Int>();
+        visitedCells.Add(new Vector2Int(currentX, currentY));
+
+        // Probability settings
+        float backtrackProb = difficulty == Difficulty.Extreme ? 0.4f : 0.3f;
+        float sideStepProb = difficulty == Difficulty.Extreme ? 0.5f : 0.4f;
+        float windingPathProb = difficulty == Difficulty.Extreme ? 0.6f : 0.5f;
+
+        while (currentX != targetX || currentY != targetY)
+        {
+            maze[currentX, currentY].isPath = true;
+            List<(int dx, int dy)> possibleMoves = new List<(int dx, int dy)>();
+
+            bool nearEnd = (targetX - currentX <= 3) || (targetY - currentY <= 3);
+
+            // If near the end, increase complexity
+            if (nearEnd)
+            {
+                if (currentX < targetX) possibleMoves.Add((1, 0));
+                if (currentY < targetY) possibleMoves.Add((0, 1));
+                if (currentX > 0 && Random.value < windingPathProb) possibleMoves.Add((-1, 0));
+                if (currentY > 0 && Random.value < windingPathProb) possibleMoves.Add((0, -1));
+
+                // Add diagonal-like movements
+                if (currentX < targetX && currentY > 0 && Random.value < sideStepProb)
+                {
+                    possibleMoves.Add((1, -1));
+                }
+                if (currentX > 0 && currentY < targetY && Random.value < sideStepProb)
+                {
+                    possibleMoves.Add((-1, 1));
+                }
+            }
+            else
+            {
+                if (currentX < targetX) possibleMoves.Add((1, 0));
+                if (currentY < targetY) possibleMoves.Add((0, 1));
+                if (currentX > 0 && Random.value < backtrackProb) possibleMoves.Add((-1, 0));
+                if (currentY > 0 && Random.value < backtrackProb) possibleMoves.Add((0, -1));
+            }
+
+            if (possibleMoves.Count == 0)
+            {
+                if (visitedCells.Count > 1)
+                {
+                    visitedCells.RemoveAt(visitedCells.Count - 1);
+                    Vector2Int lastPos = visitedCells[visitedCells.Count - 1];
+                    currentX = lastPos.x;
+                    currentY = lastPos.y;
+                    continue;
+                }
+                break;
+            }
+
+            var move = possibleMoves[Random.Range(0, possibleMoves.Count)];
+            int newX = currentX + move.dx;
+            int newY = currentY + move.dy;
+
+            if (IsValidCell(newX, newY))
+            {
+                if (Mathf.Abs(move.dx) + Mathf.Abs(move.dy) == 2)
+                {
+                    // Handle diagonal movement with zigzag pattern
+                    maze[currentX, currentY].walls[move.dx > 0 ? 1 : 3] = false;
+                    maze[currentX + (move.dx > 0 ? 1 : -1), currentY].walls[move.dy > 0 ? 0 : 2] = false;
+                    maze[currentX + (move.dx > 0 ? 1 : -1), currentY].walls[move.dx > 0 ? 3 : 1] = false;
+                    maze[newX, newY].walls[move.dy > 0 ? 2 : 0] = false;
+                }
+                else
+                {
+                    // Regular movement
+                    if (move.dx > 0)
+                    {
+                        maze[currentX, currentY].walls[1] = false;
+                        maze[newX, newY].walls[3] = false;
+                    }
+                    else if (move.dx < 0)
+                    {
+                        maze[currentX, currentY].walls[3] = false;
+                        maze[newX, newY].walls[1] = false;
+                    }
+                    else if (move.dy > 0)
+                    {
+                        maze[currentX, currentY].walls[0] = false;
+                        maze[newX, newY].walls[2] = false;
+                    }
+                    else
+                    {
+                        maze[currentX, currentY].walls[2] = false;
+                        maze[newX, newY].walls[0] = false;
+                    }
+                }
+
+                currentX = newX;
+                currentY = newY;
+                visitedCells.Add(new Vector2Int(currentX, currentY));
+
+                // Add extra complexity near the end
+                if (nearEnd && Random.value < windingPathProb)
+                {
+                    CreateDeadEnd(currentX, currentY);
+                }
+            }
+        }
+
+        maze[targetX, targetY].isPath = true;
+    }
+
+    void CreateSimplePath(float straightPathProbability)
+    {
+        int currentX = 0;
+        int currentY = 0;
+        int targetX = currentSettings.width - 1;
+        int targetY = currentSettings.height - 1;
+
+        while (currentX < targetX || currentY < targetY)
+        {
+            maze[currentX, currentY].isPath = true;
+
+            if (currentX < targetX && (Random.value < straightPathProbability || currentY == targetY))
+            {
+                maze[currentX, currentY].walls[1] = false;
+                maze[currentX + 1, currentY].walls[3] = false;
+                currentX++;
+            }
+            else if (currentY < targetY)
+            {
+                maze[currentX, currentY].walls[0] = false;
+                maze[currentX, currentY + 1].walls[2] = false;
+                currentY++;
+            }
+        }
+        maze[targetX, targetY].isPath = true;
+    }
+
+    void CreateDeadEnd(int x, int y)
+    {
+        int[] directions = { 0, 1, 2, 3 };
+        ShuffleArray(directions);
+
+        foreach (int dir in directions)
+        {
+            int[] dx = { 0, 1, 0, -1 };
+            int[] dy = { 1, 0, -1, 0 };
+
+            int newX = x + dx[dir];
+            int newY = y + dy[dir];
+
+            if (IsValidCell(newX, newY) && !maze[newX, newY].isPath)
+            {
+                maze[x, y].walls[dir] = false;
+                maze[newX, newY].walls[(dir + 2) % 4] = false;
+                maze[newX, newY].isDeadEnd = true;
+                break;
+            }
+        }
+    }
+    private bool ValidatePath()
+    {
+        bool[,] visited = new bool[currentSettings.width, currentSettings.height];
+        return HasValidPath(0, 0, visited);
+    }
+
+    private bool HasValidPath(int x, int y, bool[,] visited)
+    {
+        if (x == currentSettings.width - 1 && y == currentSettings.height - 1)
+            return true;
+
+        visited[x, y] = true;
+
+        int[] dx = { 0, 1, 0, -1 };
+        int[] dy = { 1, 0, -1, 0 };
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (!maze[x, y].walls[i])
+            {
+                int newX = x + dx[i];
+                int newY = y + dy[i];
+
+                if (IsValidCell(newX, newY) && !visited[newX, newY])
+                {
+                    if (HasValidPath(newX, newY, visited))
+                        return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    void CreateEntranceAndExit()
+    {
+        maze[0, 0].walls[3] = false; // entrance
+        maze[0, 0].isPath = true;
+
+        if (currentSettings.width > 1)
+        {
+            maze[1, 0].walls[3] = false;
+            maze[1, 0].isPath = true;
+        }
+
+        int exitX = currentSettings.width - 1;
+        int exitY = currentSettings.height - 1;
+        maze[exitX, exitY].walls[1] = false; // exit
+        maze[exitX, exitY].isPath = true;
+    }
+
     void CreateWall(Vector3 position, Quaternion rotation)
     {
         GameObject wall = Instantiate(wallPrefab, position, rotation);
@@ -556,7 +640,6 @@ public class MazeGenerator : MonoBehaviour
 
         allWalls.Add(wall);
 
-        // Set appropriate material based on position
         if (Vector3.Distance(position, mazeOrigin) < 0.1f && Mathf.Abs(rotation.eulerAngles.y - 270) < 0.1f)
         {
             SetWallMaterial(wall, entranceMaterial);
@@ -570,25 +653,6 @@ public class MazeGenerator : MonoBehaviour
         {
             SetWallMaterial(wall, wallMaterial);
         }
-    }
-
-    void CreateEntranceAndExit()
-    {
-        // Create entrance (bottom-left)
-        maze[0, 0].walls[3] = false;
-        maze[0, 0].isPath = true;
-
-        if (currentSettings.width > 1)
-        {
-            maze[1, 0].walls[3] = false;
-            maze[1, 0].isPath = true;
-        }
-
-        // Create exit (top-right)
-        int exitX = currentSettings.width - 1;
-        int exitY = currentSettings.height - 1;
-        maze[exitX, exitY].walls[1] = false;
-        maze[exitX, exitY].isPath = true;
     }
 
     void CreatePillar(Vector3 position)
@@ -618,6 +682,19 @@ public class MazeGenerator : MonoBehaviour
             T value = list[k];
             list[k] = list[n];
             list[n] = value;
+        }
+    }
+
+    void ShuffleArray(int[] array)
+    {
+        int n = array.Length;
+        while (n > 1)
+        {
+            n--;
+            int k = Random.Range(0, n + 1);
+            int value = array[k];
+            array[k] = array[n];
+            array[n] = value;
         }
     }
 
