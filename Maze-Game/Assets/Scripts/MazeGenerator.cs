@@ -9,7 +9,9 @@ public class MazeGenerator : MonoBehaviour
     public Difficulty difficulty;
     public Vector2Int gridSize;
     public GameObject wallPrefab;
-    public GameObject floorPrefab;
+
+    // Ganti public GameObject floorPrefab; dengan ini
+    public Transform floorParent; // Parent untuk tempatkan lantai yang ada di hierarki
 
     private Cell[,] grid;
     private Vector2Int entrance;
@@ -64,7 +66,6 @@ public class MazeGenerator : MonoBehaviour
         }
     }
 
-    // Menggunakan algoritma DFS untuk membangun jalur
     void GeneratePath()
     {
         Stack<Cell> stack = new Stack<Cell>();
@@ -167,7 +168,10 @@ public class MazeGenerator : MonoBehaviour
                 if (cell.hasWallRight) InstantiateWall(new Vector3(x * 2 + 1, 0, y * 2), Quaternion.Euler(0, 90, 0));
                 if (cell.hasWallBottom) InstantiateWall(new Vector3(x * 2, 0, y * 2 - 1));
                 if (cell.hasWallLeft) InstantiateWall(new Vector3(x * 2 - 1, 0, y * 2), Quaternion.Euler(0, 90, 0));
-                InstantiateFloor(new Vector3(x * 2, -0.1f, y * 2)); // Slightly below for the floor
+
+                // Abaikan instansiasi untuk lantai
+                // Jika Anda ingin menempatkan objek lantai dari hierarki Anda, pastikan untuk meletakkan objek di dalam parent 'floorParent' di editor
+                // Anda bisa juga menambahkan pengecekan untuk melihat apakah prefab lantai sudah ada di scene jika diperlukan
             }
         }
     }
@@ -175,11 +179,6 @@ public class MazeGenerator : MonoBehaviour
     void InstantiateWall(Vector3 position, Quaternion rotation = default)
     {
         Instantiate(wallPrefab, position, rotation);
-    }
-
-    void InstantiateFloor(Vector3 position)
-    {
-        Instantiate(floorPrefab, position, Quaternion.identity);
     }
 
     bool IsInBounds(Vector2Int position)
