@@ -245,10 +245,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23abdba454aab264d9f8785370b66441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficulty: 0
+  difficulty: 3
+  gridSize: {x: 0, y: 0}
   wallPrefab: {fileID: 4530420279360842736, guid: 9e1646648424eae4eb1b513d791ea0f8, type: 3}
   floorPrefab: {fileID: 4775227037063930010, guid: 9d6458b20bad8a94aa841545ddd5b92c, type: 3}
-  gridSize: {x: 10, y: 10}
 --- !u!4 &1734316655
 Transform:
   m_ObjectHideFlags: 0
@@ -264,6 +264,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2005736082 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8325094175322727479, guid: f7f593e40972070458ee37de8ad54d4c, type: 3}
+  m_PrefabInstance: {fileID: 8399729820518830220}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &2005736089
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005736082}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &8399729820518830220
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -327,7 +355,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8325094175322727479, guid: f7f593e40972070458ee37de8ad54d4c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2005736089}
   m_SourcePrefab: {fileID: 100100000, guid: f7f593e40972070458ee37de8ad54d4c, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
