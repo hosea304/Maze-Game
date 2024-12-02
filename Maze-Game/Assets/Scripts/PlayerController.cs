@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundDistance = 0.4f;
     [SerializeField] private LayerMask groundMask;
 
+    [Header("Maze Settings")]
+    public Vector2Int entrance = new Vector2Int(0, 0);  // Posisi pintu masuk
+
     private CharacterController controller;
     private Vector3 velocity;
     private bool isGrounded;
@@ -26,13 +29,25 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        // Posisi awal
-        transform.position = new Vector3(-2f, 1f, 0f);
-        transform.rotation = Quaternion.Euler(0f, 90f, 0f); // Menghadap ke entrance
+        // Adjust player positioning relative to the entrance
+        // Assumes the entrance is at (0,0) and walls are 2 units apart
+        transform.position = new Vector3(entrance.x - 0.5f, 1f, entrance.y); // Menempatkan pemain tepat di depan pintu masuk
+        transform.rotation = Quaternion.Euler(0f, 90f, 0f); // Menghadap ke pintu masuk
     }
 
     private void Update()
     {
+
+        RaycastHit hit;
+        Vector3 forwardDirection = transform.forward;
+        if (Physics.Raycast(transform.position, forwardDirection, out hit, 1f)) // 1f adalah jarak cek
+        {
+            if (hit.collider.CompareTag("Wall"))
+            {
+                // Jika raycast mengenai wall, stop gerakan atau hentikan player.
+                Debug.Log("Tembok di depan player!");
+            }
+        }
         // Ground check
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
