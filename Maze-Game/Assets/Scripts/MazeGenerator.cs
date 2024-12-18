@@ -10,9 +10,8 @@ public class MazeGenerator : MonoBehaviour
     public Vector2Int gridSize;
     public GameObject wallPrefab;
 
-
-    // Ganti public GameObject floorPrefab; dengan ini
     public Transform floorParent; // Parent untuk tempatkan lantai yang ada di hierarki
+
     public GameObject triggerPrefab; // Prefab untuk trigger (EntranceExitTrigger)
     public MazeTimer mazeTimer; // Referensi ke script MazeTimer
 
@@ -43,6 +42,16 @@ public class MazeGenerator : MonoBehaviour
                 gridSize = new Vector2Int(25, 25);
                 break;
         }
+
+        // Set difficulty pada MazeTimer
+        if (mazeTimer != null)
+        {
+            mazeTimer.SetDifficulty(difficulty);
+        }
+        else
+        {
+            Debug.LogError("MazeTimer reference is not set in MazeGenerator.");
+        }
     }
 
     void GenerateMaze()
@@ -54,7 +63,6 @@ public class MazeGenerator : MonoBehaviour
         InstantiateMaze();
         InstantiateTriggers(); // Tambahkan ini
     }
-
 
     void CreateCells()
     {
@@ -175,8 +183,6 @@ public class MazeGenerator : MonoBehaviour
                 if (cell.hasWallLeft) InstantiateWall(new Vector3(x * 2 - 1, 0, y * 2), Quaternion.Euler(0, 90, 0));
 
                 // Abaikan instansiasi untuk lantai
-                // Jika Anda ingin menempatkan objek lantai dari hierarki Anda, pastikan untuk meletakkan objek di dalam parent 'floorParent' di editor
-                // Anda bisa juga menambahkan pengecekan untuk melihat apakah prefab lantai sudah ada di scene jika diperlukan
             }
         }
     }
@@ -191,7 +197,7 @@ public class MazeGenerator : MonoBehaviour
         return position.x >= 0 && position.x < gridSize.x && position.y >= 0 && position.y < gridSize.y;
     }
 
-    // Tambahkan method berikut untuk instansiasi trigger
+    // Method untuk instansiasi trigger
     void InstantiateTriggers()
     {
         // Instantiate Entrance Trigger

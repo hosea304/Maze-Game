@@ -15,11 +15,14 @@ public class MazeTimer : MonoBehaviour
     private Color runningColor = Color.white;
     private Color completedColor = Color.green;
 
+    // Current difficulty
+    private Difficulty currentDifficulty = Difficulty.Easy; // Default ke Easy
+
     void Start()
     {
+        ResetTimer(); // Menginisialisasi timer dengan "00:00" dan warna putih
         LoadBestTime();
         UpdateBestTimeUI();
-        timerText.color = runningColor; // Set warna awal saat game dimulai
     }
 
     void Update()
@@ -31,6 +34,13 @@ public class MazeTimer : MonoBehaviour
             int seconds = Mathf.FloorToInt(elapsed % 60);
             timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         }
+    }
+
+    public void SetDifficulty(Difficulty difficulty)
+    {
+        currentDifficulty = difficulty;
+        LoadBestTime();
+        UpdateBestTimeUI();
     }
 
     public void StartTimer()
@@ -69,15 +79,21 @@ public class MazeTimer : MonoBehaviour
 
     void SaveBestTime()
     {
-        PlayerPrefs.SetFloat("BestTime", bestTime);
+        string key = GetBestTimeKey();
+        PlayerPrefs.SetFloat(key, bestTime);
         PlayerPrefs.Save();
     }
 
     void LoadBestTime()
     {
-        if (PlayerPrefs.HasKey("BestTime"))
+        string key = GetBestTimeKey();
+        if (PlayerPrefs.HasKey(key))
         {
-            bestTime = PlayerPrefs.GetFloat("BestTime");
+            bestTime = PlayerPrefs.GetFloat(key);
+        }
+        else
+        {
+            bestTime = Mathf.Infinity;
         }
     }
 
@@ -93,5 +109,10 @@ public class MazeTimer : MonoBehaviour
         {
             bestTimeText.text = "Best: --:--";
         }
+    }
+
+    string GetBestTimeKey()
+    {
+        return "BestTime_" + currentDifficulty.ToString();
     }
 }

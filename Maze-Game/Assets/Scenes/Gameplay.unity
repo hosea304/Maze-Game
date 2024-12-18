@@ -6344,7 +6344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 1352447639}
-  bestTimeText: {fileID: 0}
+  bestTimeText: {fileID: 1126359216}
 --- !u!1001 &1367343075
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7860,7 +7860,7 @@ MonoBehaviour:
   gridSize: {x: 0, y: 0}
   wallPrefab: {fileID: 4530420279360842736, guid: 9e1646648424eae4eb1b513d791ea0f8, type: 3}
   floorParent: {fileID: 429909378}
-  triggerPrefab: {fileID: 7930153472313129471, guid: 227b3d5167e6aad43b85283ef79ba710, type: 3}
+  triggerPrefab: {fileID: 6853312211855540647}
   mazeTimer: {fileID: 1352447641}
 --- !u!4 &1734316655
 Transform:
@@ -9299,7 +9299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerType: 0
-  mazeTimer: {fileID: 0}
+  mazeTimer: {fileID: 1352447641}
 --- !u!1001 &8399729820518830220
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9314,7 +9314,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3102175572207420002, guid: f7f593e40972070458ee37de8ad54d4c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.8
       objectReference: {fileID: 0}
     - target: {fileID: 3102175572207420002, guid: f7f593e40972070458ee37de8ad54d4c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -9322,7 +9322,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3102175572207420002, guid: f7f593e40972070458ee37de8ad54d4c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.43
       objectReference: {fileID: 0}
     - target: {fileID: 3102175572207420002, guid: f7f593e40972070458ee37de8ad54d4c, type: 3}
       propertyPath: m_LocalRotation.w

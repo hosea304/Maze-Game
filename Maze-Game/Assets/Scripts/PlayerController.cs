@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
         // Adjust player positioning relative to the entrance
         // Assumes the entrance is at (0,0) and walls are 2 units apart
-        transform.position = new Vector3(entrance.x - 0.5f, 1f, entrance.y); // Menempatkan pemain tepat di depan pintu masuk
+        transform.position = new Vector3(entrance.x - 2f, 1f, entrance.y); // Menempatkan pemain tepat di depan pintu masuk
         transform.rotation = Quaternion.Euler(0f, 90f, 0f); // Menghadap ke pintu masuk
     }
 
