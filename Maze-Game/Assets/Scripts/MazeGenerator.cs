@@ -10,8 +10,11 @@ public class MazeGenerator : MonoBehaviour
     public Vector2Int gridSize;
     public GameObject wallPrefab;
 
+
     // Ganti public GameObject floorPrefab; dengan ini
     public Transform floorParent; // Parent untuk tempatkan lantai yang ada di hierarki
+    public GameObject triggerPrefab; // Prefab untuk trigger (EntranceExitTrigger)
+    public MazeTimer mazeTimer; // Referensi ke script MazeTimer
 
     private Cell[,] grid;
     private Vector2Int entrance;
@@ -49,7 +52,9 @@ public class MazeGenerator : MonoBehaviour
         GeneratePath();
         CreateEntrancesAndExits();
         InstantiateMaze();
+        InstantiateTriggers(); // Tambahkan ini
     }
+
 
     void CreateCells()
     {
@@ -184,6 +189,24 @@ public class MazeGenerator : MonoBehaviour
     bool IsInBounds(Vector2Int position)
     {
         return position.x >= 0 && position.x < gridSize.x && position.y >= 0 && position.y < gridSize.y;
+    }
+
+    // Tambahkan method berikut untuk instansiasi trigger
+    void InstantiateTriggers()
+    {
+        // Instantiate Entrance Trigger
+        Vector3 entrancePos = new Vector3(entrance.x * 2, 0.5f, entrance.y * 2); // Sesuaikan Y sesuai tinggi trigger
+        GameObject entranceTrigger = Instantiate(triggerPrefab, entrancePos, Quaternion.identity);
+        MazeTrigger entranceMazeTrigger = entranceTrigger.GetComponent<MazeTrigger>();
+        entranceMazeTrigger.triggerType = MazeTrigger.TriggerType.Entrance;
+        entranceMazeTrigger.mazeTimer = mazeTimer;
+
+        // Instantiate Exit Trigger
+        Vector3 exitPos = new Vector3(exit.x * 2, 0.5f, exit.y * 2); // Sesuaikan Y sesuai tinggi trigger
+        GameObject exitTrigger = Instantiate(triggerPrefab, exitPos, Quaternion.identity);
+        MazeTrigger exitMazeTrigger = exitTrigger.GetComponent<MazeTrigger>();
+        exitMazeTrigger.triggerType = MazeTrigger.TriggerType.Exit;
+        exitMazeTrigger.mazeTimer = mazeTimer;
     }
 
     public class Cell

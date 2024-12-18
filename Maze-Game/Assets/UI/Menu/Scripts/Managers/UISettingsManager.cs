@@ -220,21 +220,21 @@ namespace SlimUI.ModernMenu
 			// check texture quality
 			if (PlayerPrefs.GetInt("Textures") == 0)
 			{
-				QualitySettings.masterTextureLimit = 2;
+				QualitySettings.globalTextureMipmapLimit = 2;
 				texturelowtextLINE.gameObject.SetActive(true);
 				texturemedtextLINE.gameObject.SetActive(false);
 				texturehightextLINE.gameObject.SetActive(false);
 			}
 			else if (PlayerPrefs.GetInt("Textures") == 1)
 			{
-				QualitySettings.masterTextureLimit = 1;
+				QualitySettings.globalTextureMipmapLimit = 1;
 				texturelowtextLINE.gameObject.SetActive(false);
 				texturemedtextLINE.gameObject.SetActive(true);
 				texturehightextLINE.gameObject.SetActive(false);
 			}
 			else if (PlayerPrefs.GetInt("Textures") == 2)
 			{
-				QualitySettings.masterTextureLimit = 0;
+				QualitySettings.globalTextureMipmapLimit = 0;
 				texturelowtextLINE.gameObject.SetActive(false);
 				texturemedtextLINE.gameObject.SetActive(false);
 				texturehightextLINE.gameObject.SetActive(true);
@@ -404,7 +404,7 @@ namespace SlimUI.ModernMenu
 		{
 			// Update the UI elements to reflect the selected difficulty
 			difficultymediumtextLINE.gameObject.SetActive(PlayerPrefs.GetInt("MediumDifficulty") == 1);
-			difficultyhardtextLINE.gameObject.SetActive(PlayerPrefs.GetInt("HardDifficulty") == 1);
+			// difficultyhardtextLINE.gameObject.SetActive(PlayerPrefs.GetInt("HardDifficulty") == 1);
 			difficultyeasytextLINE.gameObject.SetActive(PlayerPrefs.GetInt("EasyDifficulty") == 1);
 			difficultyextremetextLINE.gameObject.SetActive(PlayerPrefs.GetInt("ExtremeDifficulty") == 1);
 		}
@@ -542,7 +542,7 @@ namespace SlimUI.ModernMenu
 		public void TexturesLow()
 		{
 			PlayerPrefs.SetInt("Textures", 0);
-			QualitySettings.masterTextureLimit = 2;
+			QualitySettings.globalTextureMipmapLimit = 2;
 			texturelowtextLINE.gameObject.SetActive(true);
 			texturemedtextLINE.gameObject.SetActive(false);
 			texturehightextLINE.gameObject.SetActive(false);
@@ -551,7 +551,7 @@ namespace SlimUI.ModernMenu
 		public void TexturesMed()
 		{
 			PlayerPrefs.SetInt("Textures", 1);
-			QualitySettings.masterTextureLimit = 1;
+			QualitySettings.globalTextureMipmapLimit = 1;
 			texturelowtextLINE.gameObject.SetActive(false);
 			texturemedtextLINE.gameObject.SetActive(true);
 			texturehightextLINE.gameObject.SetActive(false);
@@ -560,7 +560,7 @@ namespace SlimUI.ModernMenu
 		public void TexturesHigh()
 		{
 			PlayerPrefs.SetInt("Textures", 2);
-			QualitySettings.masterTextureLimit = 0;
+			QualitySettings.globalTextureMipmapLimit = 0;
 			texturelowtextLINE.gameObject.SetActive(false);
 			texturemedtextLINE.gameObject.SetActive(false);
 			texturehightextLINE.gameObject.SetActive(true);
