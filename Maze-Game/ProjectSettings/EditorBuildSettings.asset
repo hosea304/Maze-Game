@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Flow1.unity
     guid: 829a86ba161cdd840842063447f41aab
   - enabled: 1
-    path: Assets/Scenes/Gameplay.unity
+    path: Assets/Scenes/Gameplay (night mode).unity
     guid: 24320f6c09d69d841beb2e607d5ecf2b
   m_configObjects: {}
