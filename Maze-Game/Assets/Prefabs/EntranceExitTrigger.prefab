@@ -67,4 +67,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerType: 0
-  mazeTimer: {fileID: 0}
+  mazeTimer: {fileID: 810913911948466713, guid: 885d51850d645be4599ac49baf94e465, type: 3}
+  doorAnimator: {fileID: 6123073676856399622, guid: 11773edca9e9e5344975ad1f2aa6be44, type: 3}
+  openDuration: 1
