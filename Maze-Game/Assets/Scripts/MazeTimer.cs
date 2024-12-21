@@ -77,6 +77,16 @@ public class MazeTimer : MonoBehaviour
         timerText.color = runningColor; // Reset warna teks ke putih
     }
 
+    public void ResetGame()
+    {
+        ResetTimer();
+        MazeTrigger[] triggers = FindObjectsOfType<MazeTrigger>();
+        foreach (MazeTrigger trigger in triggers)
+        {
+            trigger.ResetTrigger();
+        }
+    }
+
     void SaveBestTime()
     {
         string key = GetBestTimeKey();

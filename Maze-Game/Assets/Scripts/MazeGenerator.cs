@@ -201,20 +201,21 @@ public class MazeGenerator : MonoBehaviour
     void InstantiateTriggers()
     {
         // Instantiate Entrance Trigger
-        Vector3 entrancePos = new Vector3(entrance.x * 2, 0.5f, entrance.y * 2); // Sesuaikan Y sesuai tinggi trigger
+        Vector3 entrancePos = new Vector3(entrance.x * 2, 0.5f, entrance.y * 2);
         GameObject entranceTrigger = Instantiate(triggerPrefab, entrancePos, Quaternion.identity);
+        entranceTrigger.transform.localScale = new Vector3(2f, 1f, 2f); // Set scale x dan z menjadi 2
         MazeTrigger entranceMazeTrigger = entranceTrigger.GetComponent<MazeTrigger>();
         entranceMazeTrigger.triggerType = MazeTrigger.TriggerType.Entrance;
         entranceMazeTrigger.mazeTimer = mazeTimer;
 
         // Instantiate Exit Trigger
-        Vector3 exitPos = new Vector3(exit.x * 2, 0.5f, exit.y * 2); // Sesuaikan Y sesuai tinggi trigger
+        Vector3 exitPos = new Vector3(exit.x * 2, 0.5f, exit.y * 2);
         GameObject exitTrigger = Instantiate(triggerPrefab, exitPos, Quaternion.identity);
+        exitTrigger.transform.localScale = new Vector3(2f, 1f, 2f); // Set scale x dan z menjadi 2
         MazeTrigger exitMazeTrigger = exitTrigger.GetComponent<MazeTrigger>();
         exitMazeTrigger.triggerType = MazeTrigger.TriggerType.Exit;
         exitMazeTrigger.mazeTimer = mazeTimer;
     }
-
     public class Cell
     {
         public Vector2Int position;
