@@ -1739,6 +1739,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 285480430}
+  - component: {fileID: 285480431}
   m_Layer: 0
   m_Name: AmbienceSound
   m_TagString: Untagged
@@ -1761,6 +1762,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &285480431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285480429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81fbf5b264cd9cb4a899763df79ca593, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ambienceSource: {fileID: 0}
+  musicSource: {fileID: 0}
+  backgroundMusic: {fileID: 8300000, guid: 6b00254ca4a41474292c4cecdc185fb9, type: 3}
+  ambienceSound1: {fileID: 8300000, guid: 26a45d4d9d83bb64396c1a98c3843de6, type: 3}
+  ambienceSound2: {fileID: 8300000, guid: 7c414c51ceea7544fa29ac5abfab7c1b, type: 3}
+  ambienceSound3: {fileID: 0}
+  ambienceVolume: 0.2
+  musicVolume: 1
+  useRandomAmbience: 1
+  minTimeBetweenSounds: 5
+  maxTimeBetweenSounds: 15
 --- !u!1001 &297561923
 PrefabInstance:
   m_ObjectHideFlags: 0
