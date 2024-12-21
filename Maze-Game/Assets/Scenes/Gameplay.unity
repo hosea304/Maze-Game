@@ -2129,6 +2129,61 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 681caea7d7db32e468aa5bc7e60da2f0, type: 3}
+--- !u!1 &285480429
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 285480430}
+  - component: {fileID: 285480431}
+  m_Layer: 0
+  m_Name: AmbienceSound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &285480430
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285480429}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &285480431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285480429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81fbf5b264cd9cb4a899763df79ca593, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ambienceSource: {fileID: 0}
+  musicSource: {fileID: 0}
+  backgroundMusic: {fileID: 8300000, guid: 6b00254ca4a41474292c4cecdc185fb9, type: 3}
+  ambienceSound1: {fileID: 8300000, guid: 26a45d4d9d83bb64396c1a98c3843de6, type: 3}
+  ambienceSound2: {fileID: 8300000, guid: 7c414c51ceea7544fa29ac5abfab7c1b, type: 3}
+  ambienceSound3: {fileID: 0}
+  ambienceVolume: 0.2
+  musicVolume: 1
+  useRandomAmbience: 1
+  minTimeBetweenSounds: 5
+  maxTimeBetweenSounds: 15
 --- !u!1001 &297561923
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10165,7 +10220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23abdba454aab264d9f8785370b66441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficulty: 3
+  difficulty: 2
   gridSize: {x: 0, y: 0}
   wallPrefab: {fileID: 4530420279360842736, guid: 9e1646648424eae4eb1b513d791ea0f8, type: 3}
   floorParent: {fileID: 429909378}
@@ -12695,62 +12750,4 @@ SceneRoots:
   - {fileID: 1985670542}
   - {fileID: 1445727675}
   - {fileID: 1753341633}
-  - {fileID: 1761046145}
-  - {fileID: 1333537595}
-  - {fileID: 1901784726}
-  - {fileID: 2062304466}
-  - {fileID: 1231931445}
-  - {fileID: 767720277}
-  - {fileID: 1127809169}
-  - {fileID: 1506627565}
-  - {fileID: 1927468325}
-  - {fileID: 1357368901}
-  - {fileID: 1417269999}
-  - {fileID: 780181652}
-  - {fileID: 764536522}
-  - {fileID: 1522259001}
-  - {fileID: 1986108495}
-  - {fileID: 1515927869}
-  - {fileID: 746284224}
-  - {fileID: 469164042}
-  - {fileID: 965914753}
-  - {fileID: 2032271084}
-  - {fileID: 104339519}
-  - {fileID: 1986608591}
-  - {fileID: 1424627388}
-  - {fileID: 533728961}
-  - {fileID: 1461740539}
-  - {fileID: 160399419}
-  - {fileID: 1426958198}
-  - {fileID: 1249920785}
-  - {fileID: 174752610}
-  - {fileID: 1820723999}
-  - {fileID: 1598561100}
-  - {fileID: 1737816001}
-  - {fileID: 1794219874}
-  - {fileID: 1271858780}
-  - {fileID: 101178491}
-  - {fileID: 822578672}
-  - {fileID: 794939336}
-  - {fileID: 158900152}
-  - {fileID: 1055996107}
-  - {fileID: 625436651}
-  - {fileID: 1896543905}
-  - {fileID: 1862997667}
-  - {fileID: 1327138558}
-  - {fileID: 57343613}
-  - {fileID: 1095498385}
-  - {fileID: 686888982}
-  - {fileID: 614270010}
-  - {fileID: 924757946}
-  - {fileID: 1605815485}
-  - {fileID: 1980695099}
-  - {fileID: 1154079371}
-  - {fileID: 162704322}
-  - {fileID: 2071811128}
-  - {fileID: 873516173}
-  - {fileID: 1910044098}
-  - {fileID: 924165885}
-  - {fileID: 404944341}
-  - {fileID: 487363718}
-  - {fileID: 459727437}
+  - {fileID: 285480430}
