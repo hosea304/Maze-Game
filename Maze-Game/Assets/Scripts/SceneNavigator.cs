@@ -1,19 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement; // Diperlukan untuk SceneManager
+using UnityEngine.SceneManagement;
 
 public class SceneNavigator : MonoBehaviour
 {
     [Header("Scene Settings")]
-    public string sceneName = "GamePlay"; // Nama scene tujuan
+    public string sceneName = "Gameplay"; // Nama scene tujuan default
 
+    /// <summary>
+    /// Load scene baru berdasarkan properti yang sudah diatur di Inspector.
+    /// </summary>
     public void LoadNewGame()
     {
-        // Validasi apakah nama scene sudah diatur
-        if (string.IsNullOrEmpty(sceneName))
+        LoadSceneByName(sceneName);
+    }
+
+    /// <summary>
+    /// Load scene baru berdasarkan nama scene yang diberikan sebagai parameter.
+    /// </summary>
+    /// <param name="newSceneName">Nama scene tujuan.</param>
+    public void LoadSceneByName(string newSceneName)
+    {
+        // Validasi apakah nama scene diberikan
+        if (string.IsNullOrEmpty(newSceneName))
         {
-            Debug.LogError("Scene name is not set! Please set the sceneName property in the Inspector.");
+            Debug.LogError("Scene name is not set! Please provide a valid scene name.");
             return;
         }
 
@@ -22,13 +32,15 @@ public class SceneNavigator : MonoBehaviour
         PlayerPrefs.Save();
 
         // Navigasi ke scene baru
-        Debug.Log("Navigating to scene: " + sceneName);
-        SceneManager.LoadScene(sceneName);
+        Debug.Log("Navigating to scene: " + newSceneName);
+        SceneManager.LoadScene(newSceneName);
     }
 
+    /// <summary>
+    /// Kembali ke scene sebelumnya berdasarkan data yang tersimpan di PlayerPrefs.
+    /// </summary>
     public void LoadPreviousScene()
     {
-        // Cek apakah data LastScene tersedia
         if (PlayerPrefs.HasKey("LastScene"))
         {
             string lastScene = PlayerPrefs.GetString("LastScene");
