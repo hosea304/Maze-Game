@@ -9,11 +9,16 @@ public class MazeGenerator : MonoBehaviour
     public Difficulty difficulty;
     public Vector2Int gridSize;
     public GameObject wallPrefab;
+    public GameObject torchPrefab; // Tambahkan prefab torch
 
     public Transform floorParent; // Parent untuk tempatkan lantai yang ada di hierarki
 
     public GameObject triggerPrefab; // Prefab untuk trigger (EntranceExitTrigger)
     public MazeTimer mazeTimer; // Referensi ke script MazeTimer
+
+    [Header("Torch Settings")]
+    [Range(0f, 1f)]
+    public float torchProbability = 0.3f;
 
     private Cell[,] grid;
     private Vector2Int entrance;
@@ -31,15 +36,19 @@ public class MazeGenerator : MonoBehaviour
         {
             case Difficulty.Easy:
                 gridSize = new Vector2Int(10, 10);
+                torchProbability = 0.3f; // Lebih banyak torch
                 break;
             case Difficulty.Medium:
                 gridSize = new Vector2Int(15, 15);
+                torchProbability = 0.3f;
                 break;
             case Difficulty.Hard:
                 gridSize = new Vector2Int(20, 20);
+                torchProbability = 0.3f; // Lebih sedikit torch
                 break;
             case Difficulty.Extreme:
                 gridSize = new Vector2Int(25, 25);
+                torchProbability = 0.3f; // Sangat sedikit torch
                 break;
         }
 
@@ -177,10 +186,43 @@ public class MazeGenerator : MonoBehaviour
             for (int y = 0; y < gridSize.y; y++)
             {
                 Cell cell = grid[x, y];
-                if (cell.hasWallTop) InstantiateWall(new Vector3(x * 2, 0, y * 2 + 1));
-                if (cell.hasWallRight) InstantiateWall(new Vector3(x * 2 + 1, 0, y * 2), Quaternion.Euler(0, 90, 0));
-                if (cell.hasWallBottom) InstantiateWall(new Vector3(x * 2, 0, y * 2 - 1));
-                if (cell.hasWallLeft) InstantiateWall(new Vector3(x * 2 - 1, 0, y * 2), Quaternion.Euler(0, 90, 0));
+                if (cell.hasWallTop)
+                {
+                    Vector3 wallPos = new Vector3(x * 2, 0, y * 2 + 1);
+                    InstantiateWall(wallPos, Quaternion.Euler(0, 0, 0));
+                    // Tambahkan torch berdasarkan probabilitas
+                    if (ShouldInstantiateTorch())
+                    {
+                        InstantiateTorch(wallPos, Quaternion.Euler(0, 0, 0));
+                    }
+                }
+                if (cell.hasWallRight)
+                {
+                    Vector3 wallPos = new Vector3(x * 2 + 1, 0, y * 2);
+                    InstantiateWall(wallPos, Quaternion.Euler(0, 90, 0));
+                    if (ShouldInstantiateTorch())
+                    {
+                        InstantiateTorch(wallPos, Quaternion.Euler(0, 90, 0));
+                    }
+                }
+                if (cell.hasWallBottom)
+                {
+                    Vector3 wallPos = new Vector3(x * 2, 0, y * 2 - 1);
+                    InstantiateWall(wallPos, Quaternion.Euler(0, 0, 0));
+                    if (ShouldInstantiateTorch())
+                    {
+                        InstantiateTorch(wallPos, Quaternion.Euler(0, 0, 0));
+                    }
+                }
+                if (cell.hasWallLeft)
+                {
+                    Vector3 wallPos = new Vector3(x * 2 - 1, 0, y * 2);
+                    InstantiateWall(wallPos, Quaternion.Euler(0, 90, 0));
+                    if (ShouldInstantiateTorch())
+                    {
+                        InstantiateTorch(wallPos, Quaternion.Euler(0, 90, 0));
+                    }
+                }
 
                 // Abaikan instansiasi untuk lantai
             }
@@ -190,6 +232,37 @@ public class MazeGenerator : MonoBehaviour
     void InstantiateWall(Vector3 position, Quaternion rotation = default)
     {
         Instantiate(wallPrefab, position, rotation);
+    }
+
+    void InstantiateTorch(Vector3 wallPosition, Quaternion wallRotation)
+    {
+        if (torchPrefab == null)
+        {
+            Debug.LogError("Torch prefab is not assigned in MazeGenerator.");
+            return;
+        }
+
+        // Tentukan offset torch dari tembok
+        Vector3 torchOffset = new Vector3(0, 1f, 0); // Sesuaikan tinggi torch di sini
+
+        // Hitung posisi torch berdasarkan rotasi tembok
+        Vector3 torchPosition = wallPosition + torchOffset;
+
+        // Rotasi torch agar menghadap keluar dari tembok dengan tambahan +90 derajat
+        Quaternion torchRotation = wallRotation * Quaternion.Euler(0, 90, 0);
+
+        // Instansiasi torch
+        GameObject torch = Instantiate(torchPrefab, torchPosition, torchRotation);
+
+        // Optional: Menjadikan torch sebagai child dari tembok untuk organisasi hierarki
+        torch.transform.parent = this.transform;
+    }
+
+    bool ShouldInstantiateTorch()
+    {
+        // Menghasilkan angka acak antara 0 dan 1
+        float rand = Random.Range(0f, 1f);
+        return rand < torchProbability;
     }
 
     bool IsInBounds(Vector2Int position)
@@ -216,6 +289,7 @@ public class MazeGenerator : MonoBehaviour
         exitMazeTrigger.triggerType = MazeTrigger.TriggerType.Exit;
         exitMazeTrigger.mazeTimer = mazeTimer;
     }
+
     public class Cell
     {
         public Vector2Int position;
