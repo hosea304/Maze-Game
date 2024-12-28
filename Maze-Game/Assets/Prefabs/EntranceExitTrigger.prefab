@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4201523482212076422}
   - component: {fileID: 3656091775730928048}
   - component: {fileID: 3085948923668146773}
+  - component: {fileID: -1913919935112691095}
   m_Layer: 0
   m_Name: EntranceExitTrigger
   m_TagString: Untagged
@@ -68,5 +69,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerType: 0
   mazeTimer: {fileID: 810913911948466713, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-  doorAnimator: {fileID: 6123073676856399622, guid: 11773edca9e9e5344975ad1f2aa6be44, type: 3}
-  openDuration: 1
+  doorAnimator: {fileID: 95207519823453868, guid: a1307b4a91e909948b68d1c68fb89817, type: 3}
+--- !u!95 &-1913919935112691095
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7930153472313129471}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 671179d1b1d22c248a1e5f7778f3663c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
