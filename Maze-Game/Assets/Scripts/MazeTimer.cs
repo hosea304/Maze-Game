@@ -1,26 +1,26 @@
 using UnityEngine;
-using TMPro; // Pastikan TextMeshPro diimpor
+using TMPro;
 
 public class MazeTimer : MonoBehaviour
 {
     [Header("UI Elements")]
-    public TMP_Text timerText; // Referensi ke TextMeshProUGUI untuk menampilkan waktu
-    public TMP_Text bestTimeText; // Referensi ke TextMeshProUGUI untuk menampilkan highscore
+    public TMP_Text timerText;
+    public TMP_Text bestTimeText;
+
+    [Header("References")]
+    public MazeWinUI mazeWinUI;    // Reference to MazeWinUI script
 
     private float startTime;
     private bool isRunning = false;
     private float bestTime = Mathf.Infinity;
 
-    // Warna teks
     private Color runningColor = Color.white;
     private Color completedColor = Color.green;
-
-    // Current difficulty
-    private Difficulty currentDifficulty = Difficulty.Easy; // Default ke Easy
+    private Difficulty currentDifficulty = Difficulty.Easy;
 
     void Start()
     {
-        ResetTimer(); // Menginisialisasi timer dengan "00:00" dan warna putih
+        ResetTimer();
         LoadBestTime();
         UpdateBestTimeUI();
     }
@@ -36,18 +36,11 @@ public class MazeTimer : MonoBehaviour
         }
     }
 
-    public void SetDifficulty(Difficulty difficulty)
-    {
-        currentDifficulty = difficulty;
-        LoadBestTime();
-        UpdateBestTimeUI();
-    }
-
     public void StartTimer()
     {
         startTime = Time.time;
         isRunning = true;
-        timerText.color = runningColor; // Pastikan warna saat timer berjalan adalah putih
+        timerText.color = runningColor;
     }
 
     public void StopTimer()
@@ -56,16 +49,19 @@ public class MazeTimer : MonoBehaviour
         {
             isRunning = false;
             float elapsed = Time.time - startTime;
-
-            // Ubah warna teks menjadi hijau saat timer berhenti
             timerText.color = completedColor;
 
-            // Cek apakah waktu saat ini lebih baik dari highscore
             if (elapsed < bestTime)
             {
                 bestTime = elapsed;
                 SaveBestTime();
                 UpdateBestTimeUI();
+            }
+
+            // Show win UI through MazeWinUI
+            if (mazeWinUI != null)
+            {
+                mazeWinUI.ShowWinUI();
             }
         }
     }
@@ -74,7 +70,7 @@ public class MazeTimer : MonoBehaviour
     {
         isRunning = false;
         timerText.text = "00:00";
-        timerText.color = runningColor; // Reset warna teks ke putih
+        timerText.color = runningColor;
     }
 
     public void ResetGame()
@@ -85,29 +81,30 @@ public class MazeTimer : MonoBehaviour
         {
             trigger.ResetTrigger();
         }
+        StartTimer(); // Start the timer when game resets
     }
 
-    void SaveBestTime()
+    public void SetDifficulty(Difficulty difficulty)
+    {
+        currentDifficulty = difficulty;
+        LoadBestTime();
+        UpdateBestTimeUI();
+    }
+
+    private void SaveBestTime()
     {
         string key = GetBestTimeKey();
         PlayerPrefs.SetFloat(key, bestTime);
         PlayerPrefs.Save();
     }
 
-    void LoadBestTime()
+    private void LoadBestTime()
     {
         string key = GetBestTimeKey();
-        if (PlayerPrefs.HasKey(key))
-        {
-            bestTime = PlayerPrefs.GetFloat(key);
-        }
-        else
-        {
-            bestTime = Mathf.Infinity;
-        }
+        bestTime = PlayerPrefs.HasKey(key) ? PlayerPrefs.GetFloat(key) : Mathf.Infinity;
     }
 
-    void UpdateBestTimeUI()
+    private void UpdateBestTimeUI()
     {
         if (bestTime < Mathf.Infinity)
         {
@@ -121,7 +118,7 @@ public class MazeTimer : MonoBehaviour
         }
     }
 
-    string GetBestTimeKey()
+    private string GetBestTimeKey()
     {
         return "BestTime_" + currentDifficulty.ToString();
     }
