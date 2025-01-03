@@ -25,8 +25,8 @@ RenderSettings:
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 3.34
   m_AmbientMode: 3
-  m_SubtractiveShadowColor: {r: 1, g: 1, b: 1, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 5c378e2ef25ab334a88daa47d032b24b, type: 2}
+  m_SubtractiveShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 538e81a3dd9acdc428c9dcefcbb6f566, type: 2}
   m_HaloStrength: 0.436
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -7648,6 +7648,7 @@ MonoBehaviour:
   timerText: {fileID: 1126359216}
   bestTimeText: {fileID: 1126359216}
   mazeWinUI: {fileID: 0}
+  winScript: {fileID: 0}
 --- !u!114 &1126359216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11354,6 +11355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23abdba454aab264d9f8785370b66441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WinScript: {fileID: 0}
   difficulty: 1
   gridSize: {x: 0, y: 0}
   wallPrefab: {fileID: 4530420279360842736, guid: 9e1646648424eae4eb1b513d791ea0f8, type: 3}

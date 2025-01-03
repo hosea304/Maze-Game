@@ -44,7 +44,7 @@ public class WinScript : MonoBehaviour
 
     public void RestartButton()
     {
-        SceneManager.LoadScene("Gameplay");
+        SceneManager.LoadScene("GameplayEasy");
     }
 
     public void ExitButton()
