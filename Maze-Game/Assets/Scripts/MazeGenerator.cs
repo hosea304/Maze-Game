@@ -5,6 +5,11 @@ public enum Difficulty { Easy, Medium, Hard, Extreme }
 
 public class MazeGenerator : MonoBehaviour
 {
+
+
+    public WinScript WinScript;
+    int maxPlatform = 0;
+
     [Header("Difficulty Settings")]
     public Difficulty difficulty;
     public Vector2Int gridSize;
@@ -23,6 +28,9 @@ public class MazeGenerator : MonoBehaviour
     private Cell[,] grid;
     private Vector2Int entrance;
     private Vector2Int exit;
+
+
+
 
     void Start()
     {
@@ -86,6 +94,11 @@ public class MazeGenerator : MonoBehaviour
                 grid[x, y].hasWallLeft = true;
             }
         }
+    }
+
+    public void Win()
+    {
+        WinScript.Setup(maxPlatform);
     }
 
     void GeneratePath()
