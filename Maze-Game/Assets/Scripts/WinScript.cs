@@ -1,3 +1,4 @@
+// WinScript.cs
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -16,7 +17,6 @@ public class WinScript : MonoBehaviour
 
     void DisplayBestTime()
     {
-        // Ambil kesulitan saat ini
         Difficulty currentDifficulty = (Difficulty)PlayerPrefs.GetInt("CurrentDifficulty", 0);
         float bestTime = PlayerPrefs.GetFloat("BestTime_" + currentDifficulty.ToString(), Mathf.Infinity);
 
@@ -42,50 +42,13 @@ public class WinScript : MonoBehaviour
         }
     }
 
-    public void LoadScene(string sceneName)
-    {
-        if (!string.IsNullOrEmpty(sceneName))
-        {
-            Debug.Log("Loading scene: " + sceneName);
-            SceneManager.LoadScene(sceneName);
-        }
-        else
-        {
-            Debug.LogError("Scene name is empty or null.");
-        }
-    }
-
     public void RestartButton()
     {
-        // Ambil kesulitan dari PlayerPrefs
-        Difficulty currentDifficulty = (Difficulty)PlayerPrefs.GetInt("CurrentDifficulty", 0);
-
-        Debug.Log("Current Difficulty: " + currentDifficulty.ToString());
-
-        // Tentukan scene berdasarkan kesulitan
-        switch (currentDifficulty)
-        {
-            case Difficulty.Easy:
-                LoadScene("GameplayEasy");
-                break;
-            case Difficulty.Medium:
-                LoadScene("GameplayMedium");
-                break;
-            case Difficulty.Hard:
-                LoadScene("GameplayHard");
-                break;
-            case Difficulty.Extreme:
-                LoadScene("GameplayExtreme");
-                break;
-            default:
-                Debug.LogError("Unknown difficulty level!");
-                break;
-        }
+        SceneManager.LoadScene("GameplayEasy");
     }
 
     public void ExitButton()
     {
-        // Kembali ke menu utama
-        LoadScene("Flow1");
+        SceneManager.LoadScene("Flow1");
     }
 }
