@@ -82,10 +82,10 @@ public class MazeTimer : MonoBehaviour
         }
         StartTimer(); // Start the timer when game resets
     }
-
     public void SetDifficulty(Difficulty difficulty)
     {
         currentDifficulty = difficulty;
+        PlayerPrefs.SetInt("CurrentDifficulty", (int)difficulty);
         LoadBestTime();
         UpdateBestTimeUI();
     }
