@@ -5,6 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagerController : MonoBehaviour
 {
+    // Enum to define difficulty levels
+    public enum Difficulty
+    {
+        Easy,
+        Medium,
+        Hard,
+        Extreme
+    }
+
+    // Static field to hold the selected difficulty
+    public static Difficulty selectedDifficulty = Difficulty.Easy;
+
     // Method to load a scene by scene name
     public void LoadScene(string sceneName)
     {
@@ -28,5 +40,12 @@ public class SceneManagerController : MonoBehaviour
     public void ReloadCurrentScene()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+    }
+
+    // Method to load a scene with difficulty setting
+    public void LoadSceneWithDifficulty(string sceneName, Difficulty difficulty)
+    {
+        selectedDifficulty = difficulty;
+        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
     }
 }
