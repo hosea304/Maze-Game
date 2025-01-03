@@ -12,8 +12,17 @@ EditorBuildSettings:
     path: Assets/Scenes/Gameplay (night mode).unity
     guid: 24320f6c09d69d841beb2e607d5ecf2b
   - enabled: 1
-    path: Assets/Scenes/Gameplay.unity
+    path: Assets/Scenes/GameplayEasy.unity
     guid: 6cb6ac67da128a747bef4f1d47fbdd96
+  - enabled: 1
+    path: Assets/Scenes/GameplayMedium.unity
+    guid: b609df4167cd1b54692d5553ecfb25e9
+  - enabled: 1
+    path: Assets/Scenes/GameplayHard.unity
+    guid: 6e7c59aaf2d81214fa6c51574b582836
+  - enabled: 1
+    path: Assets/Scenes/GameplayExtreme.unity
+    guid: 8007b7fc1b21c814badcd900792fd63f
   - enabled: 1
     path: Assets/Scenes/Gameplay night mode.unity
     guid: 4b0b7f266bd38924da88edc430f92ecc
