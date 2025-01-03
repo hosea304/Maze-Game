@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -8,11 +5,21 @@ using UnityEngine.SceneManagement;
 public class WinScript : MonoBehaviour
 {
     public Text pointsText;
+    private bool hasTransitioned = false;
+
+    void Start()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
 
     public void Setup(int score)
     {
-        gameObject.SetActive(true);
-        pointsText.text = score.ToString() + " POINTS";
+        if (!hasTransitioned)
+        {
+            hasTransitioned = true;
+            SceneManager.LoadScene("Win");
+        }
     }
 
     public void RestartButton()

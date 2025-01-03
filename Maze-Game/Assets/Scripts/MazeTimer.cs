@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class MazeTimer : MonoBehaviour
 {
@@ -8,7 +9,8 @@ public class MazeTimer : MonoBehaviour
     public TMP_Text bestTimeText;
 
     [Header("References")]
-    public MazeWinUI mazeWinUI;    // Reference to MazeWinUI script
+    public MazeWinUI mazeWinUI;
+    public WinScript winScript;  // Add reference to WinScript
 
     private float startTime;
     private bool isRunning = false;
@@ -58,11 +60,8 @@ public class MazeTimer : MonoBehaviour
                 UpdateBestTimeUI();
             }
 
-            // Show win UI through MazeWinUI
-            if (mazeWinUI != null)
-            {
-                mazeWinUI.ShowWinUI();
-            }
+            // Load Win scene
+            SceneManager.LoadScene("Win");
         }
     }
 
