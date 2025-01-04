@@ -53,6 +53,11 @@ public class MazeTimer : MonoBehaviour
             float elapsed = Time.time - startTime;
             timerText.color = completedColor;
 
+            // Simpan current time ke PlayerPrefs berdasarkan tingkat kesulitan
+            string currentKey = "CurrentTime_" + currentDifficulty.ToString();
+            PlayerPrefs.SetFloat(currentKey, elapsed);
+            PlayerPrefs.Save();
+
             if (elapsed < bestTime)
             {
                 bestTime = elapsed;
@@ -64,6 +69,7 @@ public class MazeTimer : MonoBehaviour
             LoadWinScene();
         }
     }
+
 
     public void ResetTimer()
     {

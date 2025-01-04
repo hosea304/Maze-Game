@@ -1,29 +1,36 @@
 using UnityEngine;
 using TMPro;
 
-public class MediumWinScene : MonoBehaviour
+public class WinMediumSceneUI : MonoBehaviour
 {
     [Header("UI Elements")]
     public TMP_Text bestTimeText;
+    public TMP_Text currentTimeText;
 
-    private void Start()
+    void Start()
     {
-        DisplayBestTime();
+        DisplayTimes();
     }
 
-    private void DisplayBestTime()
+    private void DisplayTimes()
     {
-        string key = "BestTime_Medium";
-        if (PlayerPrefs.HasKey(key))
+        string difficultyKey = "BestTime_Medium";
+        float bestTime = PlayerPrefs.GetFloat(difficultyKey, Mathf.Infinity);
+        float currentTime = PlayerPrefs.GetFloat("CurrentTime_Medium", 0);
+
+        if (bestTime < Mathf.Infinity)
         {
-            float bestTime = PlayerPrefs.GetFloat(key);
-            int minutes = Mathf.FloorToInt(bestTime / 60);
-            int seconds = Mathf.FloorToInt(bestTime % 60);
-            bestTimeText.text = string.Format("Best Time : {0:00}:{1:00}", minutes, seconds);
+            int bestMinutes = Mathf.FloorToInt(bestTime / 60);
+            int bestSeconds = Mathf.FloorToInt(bestTime % 60);
+            bestTimeText.text = string.Format("Best Time: {0:00}:{1:00}", bestMinutes, bestSeconds);
         }
         else
         {
-            bestTimeText.text = "Best Time : --:--";
+            bestTimeText.text = "Best Time: --:--";
         }
+
+        int currentMinutes = Mathf.FloorToInt(currentTime / 60);
+        int currentSeconds = Mathf.FloorToInt(currentTime % 60);
+        currentTimeText.text = string.Format("Current Time: {0:00}:{1:00}", currentMinutes, currentSeconds);
     }
 }
