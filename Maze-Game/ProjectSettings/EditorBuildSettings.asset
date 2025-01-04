@@ -8,9 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Flow1.unity
     guid: 829a86ba161cdd840842063447f41aab
-  - enabled: 0
-    path: Assets/Scenes/Gameplay (night mode).unity
-    guid: 24320f6c09d69d841beb2e607d5ecf2b
   - enabled: 1
     path: Assets/Scenes/GameplayEasy.unity
     guid: 6cb6ac67da128a747bef4f1d47fbdd96
@@ -28,8 +25,11 @@ EditorBuildSettings:
     guid: 04696e897a87bbf47a277ad879da487b
   - enabled: 1
     path: Assets/Scenes/Win Medium.unity
-    guid: 45a5ef4a60209e540beb11b886b1d94c
-  - enabled: 0
-    path: Assets/Scenes/Gameplay night mode.unity
-    guid: 4b0b7f266bd38924da88edc430f92ecc
+    guid: ecf803da580bdfb4e99fdb5feb72b0a7
+  - enabled: 1
+    path: Assets/Scenes/Win Hard.unity
+    guid: 615ad88cc814c1a43840aafa96d8f8cd
+  - enabled: 1
+    path: Assets/Scenes/Win Extreme.unity
+    guid: 99a836948434ce3468c7e8400c53a3b2
   m_configObjects: {}

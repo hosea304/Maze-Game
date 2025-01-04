@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class WinScript : MonoBehaviour
+public class WinHard : MonoBehaviour
 {
     public Text pointsText;
     public Text scoreText; // Tambahkan referensi untuk menampilkan skor
@@ -53,7 +53,7 @@ public class WinScript : MonoBehaviour
 
     public void RestartButton()
     {
-        SceneManager.LoadScene("GameplayEasy");
+        SceneManager.LoadScene("GameplayHard");
     }
 
     public void ExitButton()

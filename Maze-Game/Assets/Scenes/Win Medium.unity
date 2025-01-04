@@ -442,10 +442,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 2459e0086ce606a4a86de74e8fa2f0bf, type: 3}
-        m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
-        m_MethodName: set_name
-        m_Mode: 5
+      - m_Target: {fileID: 727445965}
+        m_TargetAssemblyTypeName: WinMedium, Assembly-CSharp
+        m_MethodName: RestartButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -455,7 +455,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 727445965}
-        m_TargetAssemblyTypeName: WinScript, Assembly-CSharp
+        m_TargetAssemblyTypeName: WinMedium, Assembly-CSharp
         m_MethodName: RestartButton
         m_Mode: 1
         m_Arguments:
@@ -605,10 +605,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 727445961}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faf7afc5a45d73e46b20d13bb62166d9, type: 3}
+  m_Script: {fileID: 11500000, guid: 1d81cae3125ae284491b6c0ea00fd92e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointsText: {fileID: 0}
 --- !u!1 &913336121
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,7 +692,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 727445965}
-        m_TargetAssemblyTypeName: WinScript, Assembly-CSharp
+        m_TargetAssemblyTypeName: WinMedium, Assembly-CSharp
         m_MethodName: ExitButton
         m_Mode: 1
         m_Arguments:
