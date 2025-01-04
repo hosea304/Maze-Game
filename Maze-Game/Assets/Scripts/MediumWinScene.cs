@@ -19,11 +19,11 @@ public class MediumWinScene : MonoBehaviour
             float bestTime = PlayerPrefs.GetFloat(key);
             int minutes = Mathf.FloorToInt(bestTime / 60);
             int seconds = Mathf.FloorToInt(bestTime % 60);
-            bestTimeText.text = string.Format("Best Time (Medium): {0:00}:{1:00}", minutes, seconds);
+            bestTimeText.text = string.Format("Best Time : {0:00}:{1:00}", minutes, seconds);
         }
         else
         {
-            bestTimeText.text = "Best Time (Medium): --:--";
+            bestTimeText.text = "Best Time : --:--";
         }
     }
 }

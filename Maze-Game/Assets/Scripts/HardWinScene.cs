@@ -19,11 +19,11 @@ public class HardWinScene : MonoBehaviour
             float bestTime = PlayerPrefs.GetFloat(key);
             int minutes = Mathf.FloorToInt(bestTime / 60);
             int seconds = Mathf.FloorToInt(bestTime % 60);
-            bestTimeText.text = string.Format("Best Time (Hard): {0:00}:{1:00}", minutes, seconds);
+            bestTimeText.text = string.Format("Best Time : {0:00}:{1:00}", minutes, seconds);
         }
         else
         {
-            bestTimeText.text = "Best Time (Hard): --:--";
+            bestTimeText.text = "Best Time : --:--";
         }
     }
 }
