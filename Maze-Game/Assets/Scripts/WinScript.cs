@@ -1,11 +1,8 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class WinScript : MonoBehaviour
 {
-    public Text pointsText;
-    public Text scoreText; // Tambahkan referensi untuk menampilkan skor
     private bool hasTransitioned = false;
 
     void Start()
@@ -13,7 +10,6 @@ public class WinScript : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         DisplayBestTime();
-        DisplayScore(); // Panggil fungsi untuk menampilkan skor
     }
 
     void DisplayBestTime()
@@ -25,27 +21,18 @@ public class WinScript : MonoBehaviour
         {
             int minutes = Mathf.FloorToInt(bestTime / 60);
             int seconds = Mathf.FloorToInt(bestTime % 60);
-            pointsText.text = string.Format("BEST TIME: {0:00}:{1:00}\nDifficulty: {2}",
-                minutes, seconds, currentDifficulty.ToString());
+            Debug.Log($"BEST TIME: {minutes:00}:{seconds:00}\nDifficulty: {currentDifficulty}");
         }
         else
         {
-            pointsText.text = "NO BEST TIME YET\nDifficulty: " + currentDifficulty.ToString();
+            Debug.Log($"NO BEST TIME YET\nDifficulty: {currentDifficulty}");
         }
     }
 
-    void DisplayScore()
-    {
-        int score = PlayerPrefs.GetInt("PlayerScore", 0); // Ambil skor dari PlayerPrefs
-        scoreText.text = "SCORE: " + score.ToString();    // Tampilkan skor di UI
-    }
-
-    public void Setup(int score)
+    public void Setup()
     {
         if (!hasTransitioned)
         {
-            PlayerPrefs.SetInt("PlayerScore", score); // Simpan skor ke PlayerPrefs
-            PlayerPrefs.Save();                      // Simpan semua perubahan ke PlayerPrefs
             hasTransitioned = true;
             SceneManager.LoadScene("Win");
         }
@@ -53,11 +40,22 @@ public class WinScript : MonoBehaviour
 
     public void RestartButton()
     {
-        SceneManager.LoadScene("GameplayEasy");
+        SceneManager.LoadScene("GameplayEasy"); // Ubah sesuai dengan nama scene Anda
     }
 
     public void ExitButton()
     {
-        SceneManager.LoadScene("Flow1");
+        SceneManager.LoadScene("Flow1"); // Ubah sesuai dengan nama scene menu utama Anda
     }
+
+    public void Setup(int maxPlatform)
+    {
+        if (!hasTransitioned)
+        {
+            Debug.Log($"Setup called with maxPlatform: {maxPlatform}");
+            hasTransitioned = true;
+            SceneManager.LoadScene("Win Easy");
+        }
+    }
+
 }

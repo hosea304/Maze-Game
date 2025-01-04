@@ -358,119 +358,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 384516536}
   m_CullTransparentMesh: 1
---- !u!1001 &440967727
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 727445962}
-    m_Modifications:
-    - target: {fileID: 810913911948466713, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-      propertyPath: bestTimeText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706155377476889321, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706155377476889321, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706155377476889321, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706155377476889321, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706155377476889321, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706155377476889321, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706155377476889321, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706155377476889321, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706155377476889321, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706155377476889321, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706155377476889321, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706155377476889321, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706155377476889321, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706155377476889321, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706155377476889321, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706155377476889321, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 290
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706155377476889321, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -229
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706155377476889321, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706155377476889321, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706155377476889321, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5970309139465818545, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-      propertyPath: m_Name
-      value: Timer
-      objectReference: {fileID: 0}
-    - target: {fileID: 6713802727909390316, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-      propertyPath: m_text
-      value: Best Time
-      objectReference: {fileID: 0}
-    - target: {fileID: 6713802727909390316, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-      propertyPath: m_fontSize
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 6713802727909390316, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 30
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 885d51850d645be4599ac49baf94e465, type: 3}
 --- !u!1 &602513323
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,7 +442,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 727445965}
+      - m_Target: {fileID: 727445966}
         m_TargetAssemblyTypeName: WinScript, Assembly-CSharp
         m_MethodName: RestartButton
         m_Mode: 1
@@ -565,18 +452,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: GameplayEasy
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 727445965}
-        m_TargetAssemblyTypeName: WinScript, Assembly-CSharp
-        m_MethodName: RestartButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &602513326
@@ -629,11 +504,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2459e0086ce606a4a86de74e8fa2f0bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &717892373 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5706155377476889321, guid: 885d51850d645be4599ac49baf94e465, type: 3}
-  m_PrefabInstance: {fileID: 440967727}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &727445961
 GameObject:
   m_ObjectHideFlags: 0
@@ -646,6 +516,7 @@ GameObject:
   - component: {fileID: 727445964}
   - component: {fileID: 727445963}
   - component: {fileID: 727445965}
+  - component: {fileID: 727445966}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -667,7 +538,6 @@ RectTransform:
   m_Children:
   - {fileID: 1522472850}
   - {fileID: 1866726640}
-  - {fileID: 717892373}
   - {fileID: 602513324}
   - {fileID: 913336122}
   m_Father: {fileID: 257518790}
@@ -716,6 +586,19 @@ CanvasRenderer:
   m_GameObject: {fileID: 727445961}
   m_CullTransparentMesh: 1
 --- !u!114 &727445965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727445961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 009a21d5caec94d43b2d4ee82c3a340d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bestTimeText: {fileID: 1866726641}
+--- !u!114 &727445966
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -812,7 +695,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 727445965}
+      - m_Target: {fileID: 727445966}
         m_TargetAssemblyTypeName: WinScript, Assembly-CSharp
         m_MethodName: ExitButton
         m_Mode: 1
@@ -1324,7 +1207,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -21, y: 40}
+  m_AnchoredPosition: {x: 0, y: 25}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1866726641
@@ -1410,7 +1293,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -36.644165, w: 0}
+  m_margin: {x: 0, y: 0, z: 1.5264282, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
