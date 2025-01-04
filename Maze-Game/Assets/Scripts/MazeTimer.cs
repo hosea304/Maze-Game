@@ -60,8 +60,8 @@ public class MazeTimer : MonoBehaviour
                 UpdateBestTimeUI();
             }
 
-            // Load Win scene
-            SceneManager.LoadScene("Win");
+            // Pindah ke scene kemenangan berdasarkan tingkat kesulitan
+            LoadWinScene();
         }
     }
 
@@ -82,6 +82,7 @@ public class MazeTimer : MonoBehaviour
         }
         StartTimer(); // Start the timer when game resets
     }
+
     public void SetDifficulty(Difficulty difficulty)
     {
         currentDifficulty = difficulty;
@@ -120,5 +121,33 @@ public class MazeTimer : MonoBehaviour
     private string GetBestTimeKey()
     {
         return "BestTime_" + currentDifficulty.ToString();
+    }
+
+    // Fungsi untuk memindahkan ke win scene berdasarkan tingkat kesulitan
+    private void LoadWinScene()
+    {
+        string winSceneName = "";
+
+        switch (currentDifficulty)
+        {
+            case Difficulty.Easy:
+                winSceneName = "Win Easy";
+                break;
+            case Difficulty.Medium:
+                winSceneName = "Win Medium";
+                break;
+            case Difficulty.Hard:
+                winSceneName = "Win Hard";
+                break;
+            case Difficulty.Extreme:
+                winSceneName = "Win Extreme";
+                break;
+            default:
+                Debug.LogError("Difficulty not recognized!");
+                return;
+        }
+
+        // Pindahkan ke scene yang sesuai
+        SceneManager.LoadScene(winSceneName);
     }
 }
